@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ma7fazti/customer_support.dart';
-import 'package:ma7fazti/signin.dart';
+import 'customer_support.dart';
+import 'signin.dart';
 import 'custom_widgets.dart';
+import 'color.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -104,49 +105,48 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign Up'),
+        title: const Text('Sign In'),
+        centerTitle: true,
+        backgroundColor: softPurple,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(25),
+            bottomRight: Radius.circular(25),
+          )
+        )
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomText(
-              text: 'Welcome to Ma7fazti!',
-              color: Colors.black,
-              fontWeight: FontWeight.bold,
-            ),
-            SizedBox(height: 16.0),
             CustomTextField(
+              textStyle:  TextStyle(
+                  color: softPurple
+              ),
               controller: _emailController,
               labelText: 'Email',
             ),
             SizedBox(height: 16.0),
             CustomTextField(
+              textStyle:  TextStyle(
+                color: softPurple
+            ),
               controller: _passwordController,
               labelText: 'Password',
+              obscureText: true,
             ),
             SizedBox(height: 16.0),
             CustomButton(
-              text: 'Sign Up',
-              onPressed: _signUp,
+               text: 'Sign In',
+              onPressed: _signIn,
             ),
             SizedBox(height: 16.0),
-            CustomButton(
-              text: 'Already have an account? Sign In',
-              onPressed: _goToSignInPage,
-            ),
-            SizedBox(height: 16.0),
-            CustomButton(
-              text: 'Are you facing a problem? Report the issue to customer support.',
-              onPressed: _goToCustomerSupportPage,
-            ),
-            SizedBox(height: 18.0),
             CustomText(
-              text: _message,
-              color: Colors.red,
-              fontWeight: FontWeight.bold,
-            ),
+                text: _message,
+                color: Colors.orange,
+                fontWeight: FontWeight.bold,
+                )
           ],
         ),
       ),
