@@ -64,11 +64,19 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Sign In'),
+        title: const Text('Sign In'),
+        centerTitle: true,
+        backgroundColor: softPurple,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.circular(25),
+            bottomRight: Radius.circular(25),
+          )
+        )
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -77,31 +85,61 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             TextField(
               controller: _emailController,
+              style: TextStyle(
+                  color: softPurple
+              ),
               decoration: InputDecoration(
                 labelText: 'Email',
+                icon: Icon(
+                    Icons.person,
+                    color: softPurple
+                ),
+                labelStyle: TextStyle(
+                    color: softPurple
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                ),
               ),
             ),
             SizedBox(height: 16.0),
             TextField(
               controller: _passwordController,
+              style: TextStyle(
+                  color: softPurple
+              ),
               decoration: InputDecoration(
                 labelText: 'Password',
+                icon: Icon(
+                    Icons.lock,
+                    color: softPurple
+                ),
+                labelStyle: TextStyle(
+                    color: softPurple
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                ),
               ),
-              obscureText: true,
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              child: Text('Sign In'),
-              onPressed: _signIn,
+                style: buttonPrimary,
+                onPressed: _signIn,
+                child: const Text('Sign In.')
             ),
             SizedBox(height: 16.0),
-            Text(
-              _message,
-              style: TextStyle(
-                color: Colors.red,
+            CustomText(
+                text: _message,
+                color: Colors.orange,
                 fontWeight: FontWeight.bold,
-              ),
-            ),
+                )
           ],
         ),
       ),
