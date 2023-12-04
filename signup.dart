@@ -101,11 +101,11 @@ class _SignUpPageState extends State<SignUpPage> {
       MaterialPageRoute(builder: (context) => CustomerSupportPage()),
     );
   }
-  @override
+   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
+        title: const Text('Sign Up'),
         centerTitle: true,
         backgroundColor: softPurple,
         shape: const RoundedRectangleBorder(
@@ -120,33 +120,90 @@ class _SignUpPageState extends State<SignUpPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomTextField(
-              textStyle:  TextStyle(
+            Expanded(
+              child: Center(
+                child: Image.asset('assets/images/logo.jpeg', fit: BoxFit.contain),
+              ),
+            ),
+            new Text('Welcome to Ma7fazty!',
+            style: TextStyle(
+              color: softPurple,
+              fontSize: 25.0,
+              fontWeight: FontWeight.bold
+            )
+            ),
+
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _emailController,
+              style: TextStyle(
+                color: softPurple
+              ),
+              decoration: InputDecoration(
+                labelText: 'Email',
+                icon: Icon(
+                    Icons.person,
+                    color: softPurple
+                ),
+                labelStyle: TextStyle(
+                  color: softPurple
+                ),
+                border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                ),
+              ),
+            ),
+            SizedBox(height: 16.0),
+            TextField(
+              controller: _passwordController,
+              style: TextStyle(
                   color: softPurple
               ),
-              controller: _emailController,
-              labelText: 'Email',
+              decoration: InputDecoration(
+                  labelText: 'Password',
+                  icon: Icon(
+                      Icons.lock,
+                      color: softPurple
+                  ),
+              labelStyle: TextStyle(
+                  color: softPurple
+                ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                ),
+              ),
             ),
             SizedBox(height: 16.0),
-            CustomTextField(
-              textStyle:  TextStyle(
-                color: softPurple
-            ),
-              controller: _passwordController,
-              labelText: 'Password',
-              obscureText: true,
+            ElevatedButton(
+              style: buttonPrimary,
+                onPressed: _signUp,
+                child: const Text('Sign Up.'),
             ),
             SizedBox(height: 16.0),
-            CustomButton(
-               text: 'Sign In',
-              onPressed: _signIn,
-            ),
+           ElevatedButton(
+             style: buttonPrimary,
+             onPressed: _goToSignInPage,
+             child:
+             const Text('Already have an account? Sign In.'),
+           ),
             SizedBox(height: 16.0),
+            ElevatedButton(
+                style: buttonPrimary,
+                onPressed: _goToCustomerSupportPage,
+                child: const Text('Contact Us.')
+            ),
+            SizedBox(height: 18.0),
             CustomText(
-                text: _message,
-                color: Colors.orange,
-                fontWeight: FontWeight.bold,
-                )
+              text: _message,
+              color: Colors.orange,
+              fontWeight: FontWeight.bold,
+            ),
           ],
         ),
       ),
