@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ma7fazti/home.dart';
+import 'home.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInPage extends StatefulWidget {
