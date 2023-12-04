@@ -16,12 +16,31 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordController = TextEditingController();
   String _message = '';
 
-  Future<void> _signUp() async {
+Future<void> _signUp() async {
     try {
+      String email = _emailController.text.trim();
       String password = _passwordController.text;
-      if (!_isValidPassword(password)) {
+
+      // Check if email or password fields are empty
+      if (email.isEmpty && password.isEmpty) {
+        setState(() {
+          _message = 'Please enter a password and email.';
+        });
+        return;
+      }
+
+      //Checking validity of password
+      if (password.isNotEmpty && !_isValidPassword(password)) {
         setState(() {
           _message = 'The password must be at least 12 characters long and contain a combination of uppercase letters, lowercase letters, numbers, and special characters.';
+        });
+        return;
+      }
+
+      //Checking validity of email
+      if (email.isNotEmpty && !_isValidEmail(email)) {
+        setState(() {
+          _message = 'Please enter a valid email address.';
         });
         return;
       }
@@ -73,7 +92,7 @@ class _SignUpPageState extends State<SignUpPage> {
       }
     }
   }
-
+  
   bool _isValidPassword(String password) {
     // Password validation using regular expressions
     RegExp lowercaseRegex = RegExp(r'[a-z]');
@@ -88,6 +107,14 @@ class _SignUpPageState extends State<SignUpPage> {
         specialCharRegex.hasMatch(password);
   }
 
+   bool _isValidEmail(String email) {
+    RegExp emailRegex = RegExp(
+      r'^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
+      caseSensitive: false,
+    );
+
+    return emailRegex.hasMatch(email);
+  }
 
   void _goToSignInPage() {
     Navigator.push(
@@ -107,7 +134,7 @@ class _SignUpPageState extends State<SignUpPage> {
       appBar: AppBar(
         title: const Text('Sign Up'),
         centerTitle: true,
-        backgroundColor: softPurple,
+        backgroundColor: cyan,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(25),
@@ -122,12 +149,12 @@ class _SignUpPageState extends State<SignUpPage> {
           children: [
             Expanded(
               child: Center(
-                child: Image.asset('assets/images/logo.jpeg', fit: BoxFit.contain),
+                child: Image.asset('assets/images/logo2.png', fit: BoxFit.contain),
               ),
             ),
             new Text('Welcome to Ma7fazty!',
             style: TextStyle(
-              color: softPurple,
+              color: cyan,
               fontSize: 25.0,
               fontWeight: FontWeight.bold
             )
@@ -137,16 +164,16 @@ class _SignUpPageState extends State<SignUpPage> {
             TextField(
               controller: _emailController,
               style: TextStyle(
-                color: softPurple
+                color: orange
               ),
               decoration: InputDecoration(
                 labelText: 'Email',
                 icon: Icon(
                     Icons.person,
-                    color: softPurple
+                    color: orange
                 ),
                 labelStyle: TextStyle(
-                  color: softPurple
+                  color: pink
                 ),
                 border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10.0),
@@ -160,16 +187,16 @@ class _SignUpPageState extends State<SignUpPage> {
             TextField(
               controller: _passwordController,
               style: TextStyle(
-                  color: softPurple
+                  color: orange
               ),
               decoration: InputDecoration(
                   labelText: 'Password',
                   icon: Icon(
                       Icons.lock,
-                      color: softPurple
+                      color: orange
                   ),
               labelStyle: TextStyle(
-                  color: softPurple
+                  color: pink
                 ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0),
@@ -198,10 +225,11 @@ class _SignUpPageState extends State<SignUpPage> {
                 onPressed: _goToCustomerSupportPage,
                 child: const Text('Contact Us.')
             ),
+          
             SizedBox(height: 18.0),
             CustomText(
               text: _message,
-              color: Colors.orange,
+              color: Colors.red,
               fontWeight: FontWeight.bold,
             ),
           ],
