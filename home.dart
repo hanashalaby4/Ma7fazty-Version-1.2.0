@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ma7fazty/custom_widgets.dart';
 import 'budget_setting.dart';
 import 'expense_view.dart';
 import 'expense_entry.dart';
 import 'budget_view.dart';
+import 'color.dart';
 
 class HomePage extends StatelessWidget {
   final UserCredential userCredential;
@@ -17,14 +19,36 @@ class HomePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home'),
+          title: const Text('Home'),
+          centerTitle: true,
+          backgroundColor: cyan,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
+              )
+          )
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(top: 0.0, bottom: 70.0),
+                child: Image.asset(
+                  'assets/images/logo3.png',
+                  width: 100,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
+            SizedBox(height: 16.0),
             ElevatedButton(
-              child: Text('Enter New Expenses'),
+            style: buttonPrimary,
+              child: const Text('Enter New Expenses'),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -37,8 +61,10 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(height: 16.0),
             ElevatedButton(
-              child: Text('View Expenses'),
+              style: buttonPrimary,
+              child:  const Text('View Expenses'),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -48,8 +74,10 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(height: 16.0),
             ElevatedButton(
-              child: Text('Set a New Budget'),
+              style: buttonPrimary,
+              child: const Text('Set a New Budget'),
               onPressed: () {
                 Navigator.push(
                   context,
@@ -62,8 +90,10 @@ class HomePage extends StatelessWidget {
                 );
               },
             ),
+            SizedBox(height: 16.0),
             ElevatedButton(
-              child: Text('View Budgets'),
+              style: buttonPrimary,
+              child: const Text('View Budgets'),
               onPressed: () {
                 Navigator.push(
                   context,
