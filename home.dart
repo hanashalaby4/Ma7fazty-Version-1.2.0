@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ma7fazti/budget_setting.dart';
-import 'package:ma7fazti/expense_view.dart';
-import 'package:ma7fazti/expense_entry.dart';
-import 'package:ma7fazti/budget_view.dart';
+import 'budget_setting.dart';
+import 'expense_view.dart';
+import 'expense_entry.dart';
+import 'budget_view.dart';
 
 class HomePage extends StatelessWidget {
   final UserCredential userCredential;
