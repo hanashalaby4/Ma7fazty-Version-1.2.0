@@ -24,7 +24,7 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: const Text('Sign Up'),
+          title: const Text('View Expenses'),
           centerTitle: true,
           backgroundColor: cyan,
           shape: const RoundedRectangleBorder(
@@ -34,8 +34,18 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
               )
           )
       ),
-      body: Column(
+      body: Padding(
+        padding: EdgeInsets.all(16.0),
+      child: Column(
         children: [
+          Align(
+            alignment: Alignment.topLeft,
+            child: Image.asset(
+              'assets/images/logo3.png',
+              width: 100,
+              fit: BoxFit.contain,
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child:CustomText(
@@ -57,7 +67,7 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                 },
               ),
               CustomText(
-                  text: 'Current month entries',
+                  text: 'Entries of current month',
                 color: cyan,
 
               ),
@@ -194,7 +204,7 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                               children: List.generate(data.length, (index) {
                                 final categoryExpense = data[index];
                                 final categoryName = categoryExpense.category;
-                                final color = Colors.primaries[index % Colors.primaries.length];
+                                final color = customColors[data.indexOf(categoryExpense) % customColors.length];
 
                                 return Row(
                                   children: [
@@ -204,7 +214,10 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                                       color: color,
                                     ),
                                     SizedBox(width: 8),
-                                    Text(categoryName),
+                                    CustomText(
+                                      text: categoryName,
+                                      color: cyan
+                                    ),
                                   ],
                                 );
                               }),
@@ -215,6 +228,7 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                     ),
                     SizedBox(height: 16.0),
                     ElevatedButton(
+                      style: buttonPrimary,
                       onPressed: () {
                         _shareExpenses(filteredExpenses);
                       },
@@ -226,6 +240,7 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
             ),
           ),
         ],
+      ),
       ),
     );
   }
@@ -260,14 +275,14 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
 
       return PieChartSectionData(
         value: percentage,
-        title: '$percentage%',
+        title: '${percentage.toStringAsFixed(1)}%',
         radius: 80,
         titleStyle: TextStyle(
           fontSize: 18,
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
-        color: Colors.primaries[data.indexOf(categoryExpense) % Colors.primaries.length],
+        color: customColors[data.indexOf(categoryExpense) % customColors.length],
       );
     }).toList();
   }
