@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'color.dart';
+import 'custom_widgets.dart';
 
 class BudgetSettingsPage extends StatefulWidget {
   final String userId;
@@ -32,7 +34,15 @@ class _BudgetSettingsPageState extends State<BudgetSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Budget Settings'),
+          title: const Text('View budget'),
+          centerTitle: true,
+          backgroundColor: cyan,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
+              )
+          )
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -43,10 +53,23 @@ class _BudgetSettingsPageState extends State<BudgetSettingsPage> {
             children: <Widget>[
               Text(
                 'Please enter a budget for the current month:',
-                style: TextStyle(fontSize: 16),
+                style: TextStyle(fontSize: 16,
+                color: cyan),
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Monthly Budget'),
+                style: TextStyle(
+                    color: orange
+                ),
+                decoration: InputDecoration( labelStyle: TextStyle(
+                    color: pink
+                ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.pink),
+                  ),
+                ),
                 keyboardType: TextInputType.number,
                 onSaved: (value) {
                   final nonNullValue = value ?? '';
@@ -65,6 +88,7 @@ class _BudgetSettingsPageState extends State<BudgetSettingsPage> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
+                  style: buttonPrimary,
                   onPressed: saveSettings,
                   child: Text('Save'),
                 ),
