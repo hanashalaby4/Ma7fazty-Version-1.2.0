@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'custom_widgets.dart';
+import 'package:ma7fazty/custom_widgets.dart';
 import 'budget_setting.dart';
 import 'expense_view.dart';
 import 'expense_entry.dart';
@@ -29,86 +29,89 @@ class HomePage extends StatelessWidget {
               )
           )
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+      body:
+        Column(
           children: [
             Align(
               alignment: Alignment.topLeft,
-              child: Padding(
-                padding: EdgeInsets.only(top: 0.0, bottom: 70.0),
                 child: Image.asset(
                   'assets/images/logo3.png',
                   width: 100,
                   fit: BoxFit.contain,
                 ),
-              ),
             ),
 
-            SizedBox(height: 16.0),
-            ElevatedButton(
-            style: buttonPrimary,
-              child: const Text('Enter New Expenses'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ExpenseEntryPage(),
-                    settings: RouteSettings(
-                      arguments: userCredential,
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                  ElevatedButton(
+                  style: buttonPrimary,
+                    child: const Text('Enter New Expenses'),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ExpenseEntryPage(),
+                          settings: RouteSettings(
+                            arguments: userCredential,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      style: buttonPrimary,
+                      child:  const Text('View Expenses'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ExpenseViewPage(userID: userCredential.user?.uid ?? ''),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              style: buttonPrimary,
-              child:  const Text('View Expenses'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ExpenseViewPage(userID: userCredential.user?.uid ?? ''),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              style: buttonPrimary,
-              child: const Text('Set a New Budget'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BudgetSettingsPage(userId: userCredential.user?.uid ?? ''),
-                    settings: RouteSettings(
-                      arguments: userCredential,
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      style: buttonPrimary,
+                      child: const Text('Set a New Budget'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BudgetSettingsPage(userId: userCredential.user?.uid ?? ''),
+                            settings: RouteSettings(
+                              arguments: userCredential,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                );
-              },
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              style: buttonPrimary,
-              child: const Text('View Budgets'),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => BudgetViewPage(),
-                    settings: RouteSettings(
-                      arguments: userCredential,
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      style: buttonPrimary,
+                      child: const Text('View Budgets'),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BudgetViewPage(),
+                            settings: RouteSettings(
+                              arguments: userCredential,
+                            ),
+                          ),
+                        );
+                      },
                     ),
-                  ),
-                );
-              },
-            ),
+                  ],
+                ),
+              ),
+            )
           ],
         ),
-      ),
     );
   }
 }
