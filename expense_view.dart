@@ -3,6 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/services.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'custom_widgets.dart';
+import 'color.dart';
 
 class ExpenseViewPage extends StatefulWidget {
   final String userID;
@@ -22,15 +24,24 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Expense View'),
+          title: const Text('Sign Up'),
+          centerTitle: true,
+          backgroundColor: cyan,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
+              )
+          )
       ),
       body: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Text(
-              'Do you want to view expenses for the current month only or all expenses?',
-              style: TextStyle(fontSize: 18),
+            child:CustomText(
+              text: 'View expenses for:',
+              color: cyan,
+              fontSize: 20.0,
             ),
           ),
           Row(
@@ -45,7 +56,11 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                   });
                 },
               ),
-              Text('Current Month'),
+              CustomText(
+                  text: 'Current month entries',
+                color: cyan,
+
+              ),
               Radio(
                 value: false,
                 groupValue: showCurrentMonthExpenses,
@@ -55,12 +70,18 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                   });
                 },
               ),
-              Text('All'),
+              CustomText(
+                  text: 'All entries',
+                  color: cyan
+              ),
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              style: TextStyle(
+                color: orange
+              ),
               onChanged: (value) {
                 setState(() {
                   categoryFilter = value;
@@ -68,6 +89,15 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
               },
               decoration: InputDecoration(
                 labelText: 'Enter category to filter',
+                labelStyle: TextStyle(
+                    color: pink
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                ),
               ),
             ),
           ),
@@ -117,13 +147,25 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
                           final formattedDateTime = DateFormat('MM/dd/yyyy HH:mm').format(dateTime);
 
                           return ListTile(
-                            title: Text(name),
+                            title: CustomText(
+                              text: name,
+                              color: cyan,
+                            ),
                             subtitle: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Category: $category'),
-                                Text('Amount: $amount'),
-                                Text('Date and Time: $formattedDateTime'),
+                                CustomText(
+                                  text: 'Category: $category',
+                                  color: cyan,
+                                ),
+                                CustomText(
+                                  text: 'Amount: $amount',
+                                  color: cyan,
+                                ),
+                                CustomText(
+                                  text: 'Date and time: $formattedDateTime',
+                                  color: cyan,
+                                ),
                               ],
                             ),
                           );
