@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'color.dart';
+import 'custom_widgets.dart';
+
 
 class CustomerSupportPage extends StatefulWidget {
   @override
@@ -94,39 +97,95 @@ class _CustomerSupportPageState extends State<CustomerSupportPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Customer Support"),
+          title: const Text('Customer Support'),
+          centerTitle: true,
+          backgroundColor: cyan,
+          shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(25),
+                bottomRight: Radius.circular(25),
+              )
+          )
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-              controller: _emailController,
-              onChanged: (value) => _checkButtonStatus(),
-              decoration: InputDecoration(
-                labelText: "Email",
+            Align(
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/images/logo3.png',
+                width: 100,
+                fit: BoxFit.contain,
               ),
             ),
-            TextField(
-              controller: _titleController,
-              onChanged: (value) => _checkButtonStatus(),
-              decoration: InputDecoration(
-                labelText: "Title",
+            Expanded(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      controller: _emailController,
+                      onChanged: (value) => _checkButtonStatus(),
+                      decoration: InputDecoration(
+                        labelText: 'Email',
+                        icon: Icon(
+                            Icons.person,
+                            color: orange
+                        ),
+                        labelStyle: TextStyle(
+                            color: pink
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.pink),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      controller: _titleController,
+                      onChanged: (value) => _checkButtonStatus(),
+                      decoration: InputDecoration(
+                        labelText: 'Title',
+                        labelStyle: TextStyle(
+                            color: pink
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.pink),
+                        ),
+                      ),
+                    ),
+                    TextField(
+                      controller: _issueController,
+                      onChanged: (value) => _checkButtonStatus(),
+                      decoration: InputDecoration(
+                        labelText: 'Issue description',
+                        labelStyle: TextStyle(
+                            color: pink
+                        ),
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(color: Colors.pink),
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 16.0),
+                    ElevatedButton(
+                      style: buttonPrimary,
+                      onPressed: _isButtonDisabled ? null : _submitIssue,
+                      child: Text("Submit"),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            TextField(
-              controller: _issueController,
-              onChanged: (value) => _checkButtonStatus(),
-              decoration: InputDecoration(
-                labelText: "Issue Description",
-              ),
-            ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: _isButtonDisabled ? null : _submitIssue,
-              child: Text("Submit"),
-            ),
+            )
           ],
         ),
       ),
