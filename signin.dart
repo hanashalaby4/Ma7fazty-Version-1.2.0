@@ -72,7 +72,7 @@ class _SignInPageState extends State<SignInPage> {
       appBar: AppBar(
         title: const Text('Sign In'),
         centerTitle: true,
-        backgroundColor: softPurple,
+        backgroundColor: cyan,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
             bottomLeft: Radius.circular(25),
@@ -83,27 +83,39 @@ class _SignInPageState extends State<SignInPage> {
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+
           children: [
+            Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.only(top: 0.0, bottom: 50.0),
+                child: Image.asset(
+                  'assets/images/logo3.png',
+                  width: 100,
+                  fit: BoxFit.contain,
+                ),
+              ),
+            ),
+
             TextField(
               controller: _emailController,
               style: TextStyle(
-                  color: softPurple
+                  color: orange
               ),
               decoration: InputDecoration(
                 labelText: 'Email',
                 icon: Icon(
                     Icons.person,
-                    color: softPurple
+                    color: orange
                 ),
                 labelStyle: TextStyle(
-                    color: softPurple
+                    color: pink
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                  borderSide: BorderSide(color: Colors.pink),
                 ),
               ),
             ),
@@ -111,22 +123,22 @@ class _SignInPageState extends State<SignInPage> {
             TextField(
               controller: _passwordController,
               style: TextStyle(
-                  color: softPurple
+                  color: orange
               ),
               decoration: InputDecoration(
                 labelText: 'Password',
                 icon: Icon(
                     Icons.lock,
-                    color: softPurple
+                    color: orange
                 ),
                 labelStyle: TextStyle(
-                    color: softPurple
+                    color: pink
                 ),
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
+                  borderSide: BorderSide(color: Colors.pink),
                 ),
               ),
             ),
