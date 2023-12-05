@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ma7fazty/custom_widgets.dart';
+import 'custom_widgets.dart';
 import 'budget_setting.dart';
 import 'expense_view.dart';
 import 'expense_entry.dart';
