@@ -325,7 +325,8 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
               onPressed: () {
                 Navigator.of(context).pop();
               },
-              child: Text('OK'),
+              child: Text('OK',
+                         style: TextStyle(color: blackPrimary)),
             ),
           ],
         ),
