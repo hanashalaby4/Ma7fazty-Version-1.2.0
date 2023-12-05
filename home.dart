@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'budget_setting.dart';
 import 'budget_view.dart';
-import "color.dart';
+import 'color.dart';
 import 'custom_widgets.dart';
 import 'expense_view.dart';
 import 'expense_entry.dart';
