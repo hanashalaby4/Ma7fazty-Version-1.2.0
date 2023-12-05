@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'customer_support.dart';
 import 'signin.dart';
 import 'custom_widgets.dart';
-import 'color.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SignUpPage extends StatefulWidget {
@@ -16,31 +15,12 @@ class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _passwordController = TextEditingController();
   String _message = '';
 
-Future<void> _signUp() async {
+  Future<void> _signUp() async {
     try {
-      String email = _emailController.text.trim();
       String password = _passwordController.text;
-
-      // Check if email or password fields are empty
-      if (email.isEmpty && password.isEmpty) {
-        setState(() {
-          _message = 'Please enter a password and email.';
-        });
-        return;
-      }
-
-      //Checking validity of password
-      if (password.isNotEmpty && !_isValidPassword(password)) {
+      if (!_isValidPassword(password)) {
         setState(() {
           _message = 'The password must be at least 12 characters long and contain a combination of uppercase letters, lowercase letters, numbers, and special characters.';
-        });
-        return;
-      }
-
-      //Checking validity of email
-      if (email.isNotEmpty && !_isValidEmail(email)) {
-        setState(() {
-          _message = 'Please enter a valid email address.';
         });
         return;
       }
@@ -57,8 +37,7 @@ Future<void> _signUp() async {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      // Additional logic to store the user's name in Firestore or Realtime Database
-      // You can use userCredential.user.uid as the user's unique identifier
+
 
       Navigator.pushReplacement(
         context,
@@ -92,7 +71,7 @@ Future<void> _signUp() async {
       }
     }
   }
-  
+
   bool _isValidPassword(String password) {
     // Password validation using regular expressions
     RegExp lowercaseRegex = RegExp(r'[a-z]');
@@ -107,14 +86,6 @@ Future<void> _signUp() async {
         specialCharRegex.hasMatch(password);
   }
 
-   bool _isValidEmail(String email) {
-    RegExp emailRegex = RegExp(
-      r'^[a-zA-Z0-9._]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$',
-      caseSensitive: false,
-    );
-
-    return emailRegex.hasMatch(email);
-  }
 
   void _goToSignInPage() {
     Navigator.push(
@@ -128,104 +99,47 @@ Future<void> _signUp() async {
       MaterialPageRoute(builder: (context) => CustomerSupportPage()),
     );
   }
-   @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign Up'),
-        centerTitle: true,
-        backgroundColor: cyan,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-          )
-        )
+        title: Text('Sign Up'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Expanded(
-              child: Center(
-                child: Image.asset('assets/images/logo2.png', fit: BoxFit.contain),
-              ),
+            CustomText(
+              text: 'Welcome to Ma7fazti!',
+              color: Colors.black,
+              fontWeight: FontWeight.bold,
             ),
-            new Text('Welcome to Ma7fazty!',
-            style: TextStyle(
-              color: cyan,
-              fontSize: 25.0,
-              fontWeight: FontWeight.bold
-            )
-            ),
-
             SizedBox(height: 16.0),
-            TextField(
+            CustomTextField(
               controller: _emailController,
-              style: TextStyle(
-                color: orange
-              ),
-              decoration: InputDecoration(
-                labelText: 'Email',
-                icon: Icon(
-                    Icons.person,
-                    color: orange
-                ),
-                labelStyle: TextStyle(
-                  color: pink
-                ),
-                border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
-                ),
-              ),
+              labelText: 'Email',
             ),
             SizedBox(height: 16.0),
-            TextField(
+            CustomTextField(
               controller: _passwordController,
-              style: TextStyle(
-                  color: orange
-              ),
-              decoration: InputDecoration(
-                  labelText: 'Password',
-                  icon: Icon(
-                      Icons.lock,
-                      color: orange
-                  ),
-              labelStyle: TextStyle(
-                  color: pink
-                ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0),
-                  ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
-                ),
-              ),
+              labelText: 'Password',
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              style: buttonPrimary,
-                onPressed: _signUp,
-                child: const Text('Sign Up.'),
+            CustomButton(
+              text: 'Sign Up',
+              onPressed: _signUp,
             ),
             SizedBox(height: 16.0),
-           ElevatedButton(
-             style: buttonPrimary,
-             onPressed: _goToSignInPage,
-             child:
-             const Text('Already have an account? Sign In.'),
-           ),
-            SizedBox(height: 16.0),
-            ElevatedButton(
-                style: buttonPrimary,
-                onPressed: _goToCustomerSupportPage,
-                child: const Text('Contact Us.')
+            CustomButton(
+              text: 'Already have an account? Sign In',
+              onPressed: _goToSignInPage,
             ),
-          
+            SizedBox(height: 16.0),
+            CustomButton(
+              text: 'Are you facing a problem? Report the issue to customer support.',
+              onPressed: _goToCustomerSupportPage,
+            ),
             SizedBox(height: 18.0),
             CustomText(
               text: _message,

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:ma7fazti/budget_setting.dart';
-import 'package:ma7fazti/expense_view.dart';
-import 'package:ma7fazti/expense_entry.dart';
-import 'package:ma7fazti/budget_view.dart';
+import 'budget_setting.dart';
+import 'expense_view.dart';
+import 'expense_entry.dart';
+import 'budget_view.dart';
 
 class HomePage extends StatelessWidget {
   final UserCredential userCredential;
@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String email = userCredential.user?.email ?? '';
-    String userName = email.split('@')[0];
+    //String userName = email.split('@')[0];
 
     return Scaffold(
       appBar: AppBar(
@@ -68,10 +68,7 @@ class HomePage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BudgetViewPage(),
-                    settings: RouteSettings(
-                      arguments: userCredential,
-                    ),
+                    builder: (context) => BudgetViewPage(userId: userCredential.user?.uid ?? ''),
                   ),
                 );
               },

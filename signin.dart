@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'home.dart';
-import 'color.dart';
-import 'custom_widgets.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class SignInPage extends StatefulWidget {
@@ -29,17 +27,17 @@ class _SignInPageState extends State<SignInPage> {
         textColor: Colors.white,
         fontSize: 16.0,
       );
-      // Navigate to the home page with user credentials
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(userCredential), // Pass the user credentials here
+          builder: (context) => HomePage(userCredential), // Pass the user credentials
         ),
       );
     } catch (e) {
       print('Sign in failed: $e');
 
-      // Check the error type and access the code property
+      // Check the error type
       if (e is FirebaseAuthException) {
         if (e.code == 'user-not-found') {
           setState(() {
@@ -66,19 +64,11 @@ class _SignInPageState extends State<SignInPage> {
     }
   }
 
- @override
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sign In'),
-        centerTitle: true,
-        backgroundColor: softPurple,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.only(
-            bottomLeft: Radius.circular(25),
-            bottomRight: Radius.circular(25),
-          )
-        )
+        title: Text('Sign In'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -87,61 +77,31 @@ class _SignInPageState extends State<SignInPage> {
           children: [
             TextField(
               controller: _emailController,
-              style: TextStyle(
-                  color: softPurple
-              ),
               decoration: InputDecoration(
                 labelText: 'Email',
-                icon: Icon(
-                    Icons.person,
-                    color: softPurple
-                ),
-                labelStyle: TextStyle(
-                    color: softPurple
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
-                ),
               ),
             ),
             SizedBox(height: 16.0),
             TextField(
               controller: _passwordController,
-              style: TextStyle(
-                  color: softPurple
-              ),
               decoration: InputDecoration(
                 labelText: 'Password',
-                icon: Icon(
-                    Icons.lock,
-                    color: softPurple
-                ),
-                labelStyle: TextStyle(
-                    color: softPurple
-                ),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(10.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.pink), // Different color when focused, if desired
-                ),
               ),
+              obscureText: true,
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-                style: buttonPrimary,
-                onPressed: _signIn,
-                child: const Text('Sign In.')
+              child: Text('Sign In'),
+              onPressed: _signIn,
             ),
             SizedBox(height: 16.0),
-            CustomText(
-                text: _message,
-                color: Colors.orange,
+            Text(
+              _message,
+              style: TextStyle(
+                color: Colors.red,
                 fontWeight: FontWeight.bold,
-                )
+              ),
+            ),
           ],
         ),
       ),

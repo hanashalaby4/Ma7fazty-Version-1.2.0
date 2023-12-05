@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class BudgetViewPage extends StatefulWidget {
+  final String userId;
+
+  BudgetViewPage({required this.userId});
+
   @override
   _BudgetViewPageState createState() => _BudgetViewPageState();
 }
@@ -19,7 +23,7 @@ class _BudgetViewPageState extends State<BudgetViewPage> {
   void fetchMonthlyBudget() async {
     DocumentSnapshot snapshot = await FirebaseFirestore.instance
         .collection('budgetSettings')
-        .doc('userSettings')
+        .doc(widget.userId)
         .get();
 
     if (snapshot.exists) {
@@ -27,26 +31,34 @@ class _BudgetViewPageState extends State<BudgetViewPage> {
         Map<String, dynamic> data = snapshot.data() as Map<String, dynamic>;
         monthlyBudget = data['monthlyBudget'] ?? 0.0;
       });
-
-      calculateRemainingBudget(); // Call calculateRemainingBudget here
+      calculateRemainingBudget();
     }
   }
 
   void calculateRemainingBudget() async {
+    DateTime now = DateTime.now();
+    DateTime startOfMonth = DateTime(now.year, now.month, 1);
+    DateTime endOfMonth = DateTime(now.year, now.month + 1, 0, 23, 59, 59);
+
     QuerySnapshot expenseSnapshot = await FirebaseFirestore.instance
         .collection('expenses')
-        .where('month', isEqualTo: DateTime.now().month)
+        .doc(widget.userId)
+        .collection('userExpenses')
+        .where('dateTime', isGreaterThanOrEqualTo: startOfMonth)
+        .where('dateTime', isLessThanOrEqualTo: endOfMonth)
         .get();
 
-    double totalExpenses = 0.0;
+    if (expenseSnapshot.docs.isNotEmpty) {
+      double totalExpenses = 0.0;
 
-    expenseSnapshot.docs.forEach((expense) {
-      totalExpenses += expense.get('amount') ?? 0.0;
-    });
+      for (var expense in expenseSnapshot.docs) {
+        totalExpenses += expense.get('amount') ?? 0.0;
+      }
 
-    setState(() {
-      remainingBudget = monthlyBudget - totalExpenses;
-    });
+      setState(() {
+        remainingBudget = monthlyBudget - totalExpenses;
+      });
+    }
   }
 
   @override

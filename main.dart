@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart'; //Import statement to import the firebase_core package that initialized firbase in the app
 import 'package:flutter/material.dart'; //import material package (design widgets)
-import 'package:ma7fazti/customer_support.dart';
-import 'package:ma7fazti/signup.dart';
+import 'signup.dart';
 import 'firebase_options.dart'; //import a dart file that contains the details needed to establish a connection between Ma7fazti and firebase services
 
 
