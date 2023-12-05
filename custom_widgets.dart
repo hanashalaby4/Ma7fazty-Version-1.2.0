@@ -1,7 +1,22 @@
 import 'package:flutter/material.dart';
-//import 'expense_data.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'color.dart';
+
+final ButtonStyle buttonPrimary = ElevatedButton.styleFrom(
+  foregroundColor: blackPrimary,
+  minimumSize: Size(327, 50),
+  backgroundColor: cyan,
+  elevation: 0,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(50),
+    )
+  )
+
+);
+
+
+
 class CustomButton extends StatelessWidget {
+
   final String text;
   final VoidCallback onPressed;
   final Color color;
@@ -11,7 +26,7 @@ class CustomButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     this.color = Colors.blue,
-  }) : super(key: key);
+  }) : super(key: key); //passing key to stateless widget constructor
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +36,7 @@ class CustomButton extends StatelessWidget {
         backgroundColor: color,
       ),
       child: Text(text),
+
     );
   }
 }
@@ -29,15 +45,17 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController controller;
   final String labelText;
   final bool obscureText;
-  final TextInputType keyboardType;
+  final bool keyboardType;
+  final TextStyle textStyle;
 
-  const CustomTextField({
+  const CustomTextField ({
     Key? key,
     required this.controller,
     required this.labelText,
     this.obscureText = false,
-    this.keyboardType = TextInputType.text,
-  }) : super(key: key);
+    this.keyboardType = false,
+    required this.textStyle
+ }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -47,7 +65,6 @@ class CustomTextField extends StatelessWidget {
         labelText: labelText,
       ),
       obscureText: obscureText,
-      keyboardType: keyboardType,
     );
   }
 }
@@ -57,12 +74,14 @@ class CustomText extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   final Color color;
+  final FontStyle fontStyle;
 
   const CustomText({
     Key? key,
     required this.text,
     this.fontSize = 16.0,
     this.fontWeight = FontWeight.normal,
+    this.fontStyle = FontStyle.normal,
     this.color = Colors.black,
   }) : super(key: key);
 
