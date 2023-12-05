@@ -309,7 +309,15 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
+        return Theme(
+          data: ThemeData(
+            dialogBackgroundColor: softCyan,
+            textTheme: TextTheme(
+              bodyText2: TextStyle(color: blackPrimary),
+              subtitle1: TextStyle(color: blackPrimary),
+            ),
+          ),
+          child: AlertDialog(
           title: Text('Expenses Shared'),
           content: Text('The list of expenses has been copied to the clipboard.'),
           actions: [
@@ -320,7 +328,9 @@ class _ExpenseViewPageState extends State<ExpenseViewPage> {
               child: Text('OK'),
             ),
           ],
+        ),
         );
+        // return 
       },
     );
   }
